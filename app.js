@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const config = require('./utils/config');
 const middleware = require('./utils/middleware');
 const logger = require('./utils/logger');
-
+require('express-async-errors');
 const express = require('express');
 const app = express();
 
