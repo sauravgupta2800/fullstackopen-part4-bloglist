@@ -10,6 +10,7 @@ const app = express();
 
 const blogRouter = require('./controllers/blogs');
 const userRouter = require('./controllers/users');
+const loginRouter = require('./controllers/login');
 
 logger.info('connecting to', config.MONGODB_URI);
 
@@ -37,6 +38,9 @@ app.use(
 );
 app.use(express.json());
 
+app.use(middleware.tokenExtractor);
+app.use('/api/login', loginRouter);
+// app.use('/api/blogs',middleware.tokenExtractor, blogRouter); This way we can also use middleware
 app.use('/api/blogs', blogRouter);
 app.use('/api/users', userRouter);
 // handler of requests with unknown endpoint
