@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/sauravgupta2800/fullstackopen-part4-bloglist#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
