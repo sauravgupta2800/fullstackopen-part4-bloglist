@@ -15,7 +15,7 @@ blogRouter.get('/:id', async (request, response) => {
     id: 1,
   });
   if (blog) response.send(blog);
-  else response.status(404).send({ message:'Id is not available' });
+  else response.status(404).send({ message: 'Id is not available' });
 });
 
 blogRouter.delete('/:id', async (request, response) => {
@@ -29,9 +29,11 @@ blogRouter.delete('/:id', async (request, response) => {
     if (blog.user.toString() === request.body.userId.toString()) {
       await Blog.findByIdAndDelete(request.params.id);
       response.status(204).end();
-    }
-    else response.status(401).send({ message:'you are not the owner of this blog' });
-  } else response.status(404).send({ message:'Id is not available' });
+    } else
+      response
+        .status(401)
+        .send({ message: 'you are not the owner of this blog' });
+  } else response.status(404).send({ message: 'Id is not available' });
 });
 
 blogRouter.post('/', async (request, response) => {
@@ -57,7 +59,11 @@ blogRouter.put('/:id', async (request, response) => {
     request.params.id,
     request.body,
     { new: true }
-  );
+  ).populate('user', {
+    username: 1,
+    name: 1,
+    id: 1,
+  });
   response.status(201).json(updatedBlog);
 });
 
