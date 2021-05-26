@@ -6,6 +6,13 @@ const User = require('../models/user');
 loginRouter.post('/', async (request, response) => {
   const { username, password } = request.body;
   const user = await User.findOne({ username });
+  if (!user) {
+    //401 Unauthorized
+    response.status(401).json({
+      error: 'user doesn\'t exist',
+    });
+  }
+
   const isValidPassword =
     user && (await bcrypt.compare(password, user.passwordHash));
 
